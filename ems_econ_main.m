@@ -31,8 +31,8 @@ PARAM.Resolution  = resolution;
 PARAM.Horizon     = time_horizon; 
 PARAM.PV_capacity = pv_capacity;
 PARAM.TOU_CHOICE  = TOU_CHOICE;
-PARAM.weight_energyfromgrid = 0;
-PARAM.weight_energycost = 1;
+PARAM.weight_energyfromgrid = 1;
+PARAM.weight_energycost = 0;
 PARAM.weight_profit = 0;
 PARAM.weight_multibatt = 1;
 PARAM.weight_chargebatt = 1;
@@ -50,27 +50,27 @@ PARAM.weight_smoothcharge  = 2;
 % PARAM.battery.max = [80]; %max soc userdefined int 0-100 %
 % %end of batt
 
-% % Battery parameters
-% PARAM.battery.charge_effiency = [0.95 0.95]; %bes charge eff
-% PARAM.battery.discharge_effiency = [0.95*0.93 0.95*0.93]; %  bes discharge eff note inverter eff 0.93-0.96
-% PARAM.battery.discharge_rate = [30 30]; % kW max discharge rate
-% PARAM.battery.charge_rate = [30 30]; % kW max charge rate
-% PARAM.battery.actual_capacity = [125 125]; % kWh soc_capacity 
-% PARAM.battery.initial = [50 50]; % userdefined int 0-100 %
-% PARAM.battery.min = [20 20]; %min soc userdefined int 0-100 %
-% PARAM.battery.max = [80 80]; %max soc userdefined int 0-100 %
-% %end of batt
-
 % Battery parameters
-PARAM.battery.charge_effiency = [0.95 0.95 0.95]; %bes charge eff
-PARAM.battery.discharge_effiency = [0.95*0.93 0.95*0.93 0.95*0.93]; %  bes discharge eff note inverter eff 0.93-0.96
-PARAM.battery.discharge_rate = [30 30 30]; % kW max discharge rate
-PARAM.battery.charge_rate = [30 30 30]; % kW max charge rate
-PARAM.battery.actual_capacity = [125 125 125]; % kWh soc_capacity 
-PARAM.battery.initial = [50 50 50]; % userdefined int 0-100 %
-PARAM.battery.min = [20 20 20]; %min soc userdefined int 0-100 %
-PARAM.battery.max = [80 80 80]; %max soc userdefined int 0-100 %
+PARAM.battery.charge_effiency = [0.95 0.95]; %bes charge eff
+PARAM.battery.discharge_effiency = [0.95*0.93 0.95*0.93]; %  bes discharge eff note inverter eff 0.93-0.96
+PARAM.battery.discharge_rate = [30 30]; % kW max discharge rate
+PARAM.battery.charge_rate = [30 30]; % kW max charge rate
+PARAM.battery.actual_capacity = [125 125]; % kWh soc_capacity 
+PARAM.battery.initial = [50 50]; % userdefined int 0-100 %
+PARAM.battery.min = [20 20]; %min soc userdefined int 0-100 %
+PARAM.battery.max = [80 80]; %max soc userdefined int 0-100 %
 %end of batt
+
+% % Battery parameters
+% PARAM.battery.charge_effiency = [0.95 0.95 0.95]; %bes charge eff
+% PARAM.battery.discharge_effiency = [0.95*0.93 0.95*0.93 0.95*0.93]; %  bes discharge eff note inverter eff 0.93-0.96
+% PARAM.battery.discharge_rate = [30 30 30]; % kW max discharge rate
+% PARAM.battery.charge_rate = [30 30 30]; % kW max charge rate
+% PARAM.battery.actual_capacity = [125 125 125]; % kWh soc_capacity 
+% PARAM.battery.initial = [50 50 50]; % userdefined int 0-100 %
+% PARAM.battery.min = [20 20 20]; %min soc userdefined int 0-100 %
+% PARAM.battery.max = [80 80 80]; %max soc userdefined int 0-100 %
+% %end of batt
 
 
 PARAM.battery.num_batt = length(PARAM.battery.actual_capacity);
@@ -80,3 +80,4 @@ PARAM.battery.num_batt = length(PARAM.battery.actual_capacity);
 solution_path = 'solution';
 sol = ems_econ_opt(PARAM);
 %%
+[f,t] = ems_energyfromgrid_plot(sol);
