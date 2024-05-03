@@ -22,9 +22,8 @@ def getBuySellrate(Resolution,Horizon,TOU_CHOICE,start_time=datetime.timedelta(m
         TOU.loc[:,'sell'] =  2
         TOU.loc[:,'buy'] =  2.6
         TOU.loc[(TOU['time'].dt.hour >= 9 ) & 
-                (TOU['time'].dt.hour < 23 ),'buy'] = 5.8
-        TOU.loc[(TOU['time'].dt.hour == 23 ) &  
-                (TOU['time'].dt.minute == 0 ),'buy'] = 5.8
+                (TOU['time'].dt.hour <= 23 ),'buy'] = 5.8
+        
     #  buy_rate = [0-10:00)     2THB, 
     #                 [10:00-14:00] 3THB,
     #                (14:00-18:00) 5THB,
@@ -34,23 +33,16 @@ def getBuySellrate(Resolution,Horizon,TOU_CHOICE,start_time=datetime.timedelta(m
     elif TOU_CHOICE == 'smart' :
         TOU.loc[:,'buy'] =  2
         TOU.loc[(TOU['time'].dt.hour >= 10 ) & 
-                (TOU['time'].dt.hour < 14 ),'buy'] = 3
-        TOU.loc[(TOU['time'].dt.hour == 14 ) &  
-                (TOU['time'].dt.minute == 0 ),'buy'] = 3
-        TOU.loc[(TOU['time'].dt.hour >= 14 ) & 
-                (TOU['time'].dt.hour < 18 ),'buy'] = 5
-        TOU.loc[(TOU['time'].dt.hour == 18 ) &  
-                (TOU['time'].dt.minute == 0 ),'buy'] = 5
-        TOU.loc[(TOU['time'].dt.hour >= 18 ) & 
-                (TOU['time'].dt.hour < 22 ),'buy'] = 7
-        TOU.loc[(TOU['time'].dt.hour == 22 ) &  
-                (TOU['time'].dt.minute == 0 ),'buy'] = 7
+                (TOU['time'].dt.hour <= 14 ),'buy'] = 3
         
+        TOU.loc[(TOU['time'].dt.hour > 14 ) & 
+                (TOU['time'].dt.hour < 18 ),'buy'] = 5
+        TOU.loc[(TOU['time'].dt.hour >= 18 ) & 
+                (TOU['time'].dt.hour <= 22 ),'buy'] = 7
         TOU.loc[:,'sell'] =  2
         TOU.loc[(TOU['time'].dt.hour >= 18 ) & 
-                (TOU['time'].dt.hour < 22 ),'sell'] = 2.5
-        TOU.loc[(TOU['time'].dt.hour == 22 ) &  
-                (TOU['time'].dt.minute == 0 ),'sell'] = 2.5
+                (TOU['time'].dt.hour <= 22 ),'sell'] = 2.5
+    
     
     
     return TOU
