@@ -4,7 +4,7 @@ function sol = ems_AC_opt(PARAM)
     %%% (II) Define constraints.
     %%% (III) Call the solver and save parameters.
     % Set optimization solving time. 
-    % options = optimoptions('intlinprog','MaxTime',40);
+    options = optimoptions('intlinprog','MaxTime',120);
     
     if rem(PARAM.Horizon, PARAM.Resolution) % Check if the optimization horizon and resolution are compatible.
         error('horizon must be a multiple of resolution')            
@@ -153,7 +153,7 @@ function sol = ems_AC_opt(PARAM)
     
     %---solve for optimal sol
     
-    [sol, ~, exitflag] = solve(prob);
+    [sol, ~, exitflag] = solve(prob,Options=options);
     sol.exitflag = exitflag;
     sol.PARAM = PARAM;
 
