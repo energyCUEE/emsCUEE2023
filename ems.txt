@@ -1,0 +1,33 @@
+
+What to be revised and organized
+---------------------------------
+
+1) The abstract of the report lack the explanation of rolling optimization (bridging HA and DA).
+2) 
+
+Code in github folder contains the following
+
+README: show the report abstact + some example figures
+
+folder 
+1) input_data
+	1.1) raw data
+	1.2) processed data (downsampled, batch datasets)
+2) ems_module_python
+	2.1) function that read input data and prepare system parameter (to be input for EMS)
+	2.2) core function that solves EMS optimization
+	2.3) function that read solution from 2.2) and plot the results
+	2.4) demo notebook: script that show how to call 2.1)-2.3) from head to end. The notebook should have many examples (calling several combinations of objectives)
+	
+3) ems_module_matlab: similar to python version. The key component 2.2) in matlab version must be prepared (check the correctness too. does it return the same answer as python version)
+
+4) ems_experiments
+	4.1) economical objective
+	4.2) multiple batteries
+	4.3) smooth charge --> provide trade-off curve, pareto front
+	4.4) islanding mode
+	
+5) results
+	5.1) all generated figures used in the report
+	5.2) codes to generate such figures
+	5.3) processed results that produce the figures
