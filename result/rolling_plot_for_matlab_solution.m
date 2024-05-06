@@ -271,7 +271,6 @@ hold on
 stairs(HA_datetime,filtered_HA_sol.Pdchg_1,'-','LineWidth',1.5)
 hold on
 ylabel('Power (kW)')
-ylim([0 30])
 yticks(0:10:30)
 yyaxis right
 stairs(DA_datetime,excess_gen_DA,'-b','LineWidth',1)

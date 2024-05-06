@@ -1,6 +1,6 @@
 % change path to your solution
-DA_sol = readtable('rolling_result/dayAhead_sol_20231101_20231104.csv',ReadRowNames=true);
-HA_sol = readtable('rolling_result/Intraday_sol_20231101_20231104.csv',ReadRowNames=true);
+DA_sol = readtable('rolling_result/dayAhead_sol_test.csv',ReadRowNames=true);
+HA_sol = readtable('rolling_result/Intraday_sol_test.csv',ReadRowNames=true);
 DA_sol.cumexpense = cumsum(max(0,-DA_sol.Pnet).*DA_sol.Buy_rate*15/60); % note resolution 15/60 is resolution ant it is not return from python
 HA_sol.cumexpense = cumsum(max(0,-HA_sol.Pnet).*HA_sol.Buy_rate*5/60);
 
@@ -214,8 +214,8 @@ xticks(start_date:hours(3):end_date)
 datetick('x','HH','keepticks')
 xline(start_date+hours(24):hours(24):end_date-hours(24),'-k','LineWidth',1,'HandleVisibility','off')
 fontsize(0.6,'centimeters')
-print(f,"figures/rolling/" + filename+"_DA3plot",'-dpng')
-print(f,"figures/rolling/" + filename+"_DA3plot",'-depsc')
+% print(f,"figures/rolling/" + filename+"_DA3plot",'-dpng')
+% print(f,"figures/rolling/" + filename+"_DA3plot",'-depsc')
 %%
 f = figure('PaperPosition',[0 0 21/2 24/3],'PaperOrientation','portrait','PaperUnits','centimeters');
 t = tiledlayout(3,1,'TileSpacing','tight','Padding','tight');
@@ -270,7 +270,7 @@ hold on
 stairs(HA_datetime,filtered_HA_sol.Pdchg_1,'-','LineWidth',1.5)
 hold on
 ylabel('Power (kW)')
-ylim([0 30])
+ylim([0 10])
 yticks(0:10:30)
 yyaxis right
 stairs(DA_datetime,excess_gen_DA,'-b','LineWidth',1)
@@ -286,8 +286,8 @@ xticks(start_date:hours(3):end_date)
 datetick('x','HH','keepticks')
 xline(start_date+hours(24):hours(24):end_date-hours(24),'-k','LineWidth',1,'HandleVisibility','off')
 fontsize(0.6,'centimeters')
-print(f,"figures/rolling/" + filename + "_DAHA",'-dpng')
-print(f,"figures/rolling/" + filename + "_DAHA",'-depsc')
+% print(f,"figures/rolling/" + filename + "_DAHA",'-dpng')
+% print(f,"figures/rolling/" + filename + "_DAHA",'-depsc')
 %%
 f = figure('PaperPosition',[0 0 21/2 24/3],'PaperOrientation','portrait','PaperUnits','centimeters');
 t = tiledlayout(2,1,'TileSpacing','tight','Padding','tight');
@@ -324,6 +324,6 @@ xticks(start_date:hours(3):end_date)
 datetick('x','HH','keepticks')
 xline(start_date+hours(24):hours(24):end_date-hours(24),'-k','LineWidth',1,'HandleVisibility','off')
 fontsize(0.6,'centimeters')
-print(f,"figures/rolling/" + filename+"_Pnet",'-dpng')
-print(f,"figures/rolling/" + filename+"_Pnet",'-depsc')
+% print(f,"figures/rolling/" + filename+"_Pnet",'-dpng')
+% print(f,"figures/rolling/" + filename+"_Pnet",'-depsc')
 
