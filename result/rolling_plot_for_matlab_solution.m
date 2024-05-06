@@ -1,6 +1,7 @@
+clear;clc;
 % change path to your solution
-DA_sol = readtable('rolling_result/dayAhead_sol_20231101_20231104.csv',ReadRowNames=true);
-HA_sol = readtable('rolling_result/Intraday_sol_20231101_20231104.csv',ReadRowNames=true);
+DA_sol = readtable('rolling_result/DA_solution.csv',ReadRowNames=true);
+HA_sol = readtable('rolling_result/HA_solution.csv',ReadRowNames=true);
 DA_sol.cumexpense = cumsum(max(0,-DA_sol.Pnet).*DA_sol.Buy_rate*15/60); % note resolution 15/60 is resolution ant it is not return from python
 HA_sol.cumexpense = cumsum(max(0,-HA_sol.Pnet).*HA_sol.Buy_rate*5/60);
 
@@ -15,8 +16,8 @@ filtered_PL = Actual_PL((Actual_PL.datetime >= start_date) & (Actual_PL.datetime
 filtered_PV = Actual_PV((Actual_PV.datetime >= start_date) & (Actual_PV.datetime < end_date),7);
 
 [n_row,n_col] = size(filtered_DA_sol);
-excess_gen_DA = filtered_DA_sol.PARAM_PV - filtered_DA_sol.PARAM_PL;
-excess_gen_HA = filtered_HA_sol.PARAM_PV - filtered_HA_sol.PARAM_PL;
+excess_gen_DA = filtered_DA_sol.PV - filtered_DA_sol.PL;
+excess_gen_HA = filtered_HA_sol.PV - filtered_HA_sol.PL;
 DA_datetime = datetime(filtered_DA_sol.datetime);
 HA_datetime = datetime(filtered_HA_sol.datetime);
 PL_datetime = datetime(filtered_PL.datetime);
@@ -25,15 +26,14 @@ filename = "20231101_20231104";
 %%
 % Declare the figure size and number of plot
 f = figure('PaperPosition',[0 0 21 24],'PaperOrientation','portrait','PaperUnits','centimeters');
-
 t = tiledlayout(4,2,'TileSpacing','tight','Padding','tight');
 nexttile
 stairs(PV_datetime,filtered_PV.Ptot_kW_*50/8,'-k','LineWidth',1.5)
 hold on
 grid on
-stairs(DA_datetime,filtered_DA_sol.PARAM_PV,'-b','LineWidth',1.2)
+stairs(DA_datetime,filtered_DA_sol.PV,'-b','LineWidth',1.2)
 hold on 
-stairs(HA_datetime,filtered_HA_sol.PARAM_PV,'-r','LineWidth',1)
+stairs(HA_datetime,filtered_HA_sol.PV,'-r','LineWidth',1)
 legend('Actual solar','Solar DA','Solar HA','Location','northeastoutside')
 ylabel('Power (kW)')
 title('Predicted solar profile','FontSize',24)
@@ -63,9 +63,9 @@ nexttile
 stairs(PL_datetime,filtered_PL.Ptot_kW_,'-k','LineWidth',1.5)
 grid on
 hold on
-stairs(DA_datetime,filtered_DA_sol.PARAM_PL,'-b','LineWidth',1.2)
+stairs(DA_datetime,filtered_DA_sol.PL,'-b','LineWidth',1.2)
 hold on
-stairs(HA_datetime,filtered_HA_sol.PARAM_PL,'-r','LineWidth',1.2)
+stairs(HA_datetime,filtered_HA_sol.PL,'-r','LineWidth',1.2)
 legend('Actual load','Load DA','Load HA','Location','northeastoutside')
 ylabel('Power (kW)')
 title('Predicted load profile','FontSize',24)
@@ -122,10 +122,10 @@ ylim([0 35])
 datetick('x','HH','keepticks')
 
 nexttile
-stairs(DA_datetime,filtered_DA_sol.u1,'-b','LineWidth',1.5)
+stairs(DA_datetime,filtered_DA_sol.u,'-b','LineWidth',1.5)
 hold on
 grid on
-stairs(HA_datetime,filtered_HA_sol.u1,'-r','LineWidth',1.5)
+stairs(HA_datetime,filtered_HA_sol.u,'-r','LineWidth',1.5)
 hold on
 ylabel('Expense (THB)')
 ylim([-1 50])
@@ -165,9 +165,9 @@ nexttile
 stairs(PV_datetime,filtered_PV.Ptot_kW_*50/8,'-k','LineWidth',1.5)
 hold on
 grid on
-stairs(DA_datetime,filtered_DA_sol.PARAM_PV,'-b','LineWidth',1.2)
+stairs(DA_datetime,filtered_DA_sol.PV,'-b','LineWidth',1.2)
 hold on 
-stairs(HA_datetime,filtered_HA_sol.PARAM_PV,'-r','LineWidth',1)
+stairs(HA_datetime,filtered_HA_sol.PV,'-r','LineWidth',1)
 legend('Actual solar','Solar DA','Solar HA','Location','northeastoutside')
 ylabel('Power (kW)')
 title('Predicted solar profile','FontSize',24)
@@ -182,9 +182,9 @@ nexttile
 stairs(PL_datetime,filtered_PL.Ptot_kW_,'-k','LineWidth',1.5)
 grid on
 hold on
-stairs(DA_datetime,filtered_DA_sol.PARAM_PL,'-b','LineWidth',1.2)
+stairs(DA_datetime,filtered_DA_sol.PL,'-b','LineWidth',1.2)
 hold on
-stairs(HA_datetime,filtered_HA_sol.PARAM_PL,'-r','LineWidth',1.2)
+stairs(HA_datetime,filtered_HA_sol.PL,'-r','LineWidth',1.2)
 legend('Actual load','Load DA','Load HA','Location','northeastoutside')
 ylabel('Power (kW)')
 title('Predicted load profile','FontSize',24)
@@ -215,8 +215,8 @@ xticks(start_date:hours(3):end_date)
 datetick('x','HH','keepticks')
 xline(start_date+hours(24):hours(24):end_date-hours(24),'-k','LineWidth',1,'HandleVisibility','off')
 fontsize(0.6,'centimeters')
-print(f,"figures/rolling/" + filename+"_DA3plot",'-dpng')
-print(f,"figures/rolling/" + filename+"_DA3plot",'-depsc')
+%print(f,"figures/rolling/" + filename+"_DA3plot",'-dpng')
+%print(f,"figures/rolling/" + filename+"_DA3plot",'-depsc')
 %%
 f = figure('PaperPosition',[0 0 21/2 24/3],'PaperOrientation','portrait','PaperUnits','centimeters');
 t = tiledlayout(3,1,'TileSpacing','tight','Padding','tight');
@@ -287,8 +287,8 @@ xticks(start_date:hours(3):end_date)
 datetick('x','HH','keepticks')
 xline(start_date+hours(24):hours(24):end_date-hours(24),'-k','LineWidth',1,'HandleVisibility','off')
 fontsize(0.6,'centimeters')
-print(f,"figures/rolling/" + filename + "_DAHA",'-dpng')
-print(f,"figures/rolling/" + filename + "_DAHA",'-depsc')
+%print(f,"figures/rolling/" + filename + "_DAHA",'-dpng')
+%print(f,"figures/rolling/" + filename + "_DAHA",'-depsc')
 %%
 f = figure('PaperPosition',[0 0 21/2 24/3],'PaperOrientation','portrait','PaperUnits','centimeters');
 t = tiledlayout(2,1,'TileSpacing','tight','Padding','tight');
@@ -306,10 +306,10 @@ xticks(start_date:hours(3):end_date)
 datetick('x','HH','keepticks')
 xline(start_date+hours(24):hours(24):end_date-hours(24),'-k','LineWidth',1,'HandleVisibility','off')
 nexttile
-stairs(DA_datetime,filtered_DA_sol.u1,'-b','LineWidth',1.5)
+stairs(DA_datetime,filtered_DA_sol.u,'-b','LineWidth',1.5)
 hold on
 grid on
-stairs(HA_datetime,filtered_HA_sol.u1,'-r','LineWidth',1.5)
+stairs(HA_datetime,filtered_HA_sol.u,'-r','LineWidth',1.5)
 hold on
 ylabel('Expense (THB)')
 ylim([-1 50])
@@ -325,6 +325,6 @@ xticks(start_date:hours(3):end_date)
 datetick('x','HH','keepticks')
 xline(start_date+hours(24):hours(24):end_date-hours(24),'-k','LineWidth',1,'HandleVisibility','off')
 fontsize(0.6,'centimeters')
-print(f,"figures/rolling/" + filename+"_Pnet",'-dpng')
-print(f,"figures/rolling/" + filename+"_Pnet",'-depsc')
+%print(f,"figures/rolling/" + filename+"_Pnet",'-dpng')
+%print(f,"figures/rolling/" + filename+"_Pnet",'-depsc')
 
