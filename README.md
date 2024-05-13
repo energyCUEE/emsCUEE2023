@@ -1,5 +1,5 @@
 <details>
-<summary>Unit for each parameters and variable</summary>
+<summary>EMS description</summary>
 
 | General parameter  | Unit |
 | ------------- | ------------- |
@@ -198,5 +198,14 @@ Note : Start_date is in YYYY-MM-DD HH:MM:SS which must be converted using pd.to_
  **Return** : matplotlib figure <br />
  The figure object from matplotlib which plot solution and can be later save using `fig.savefig(path,bbox_inches='tight')` <br />
 </details>
+<details>
+<summary>EMS function for MATLAB</summary>
+For MATLAB, EMS file are seperated in the following format. <br />
+ 1. EMS_*_opt.m : Function for EMS in the * objective. <br />
+ 2. EMS_*_plot.m : Function for plotting the solution obtained from 1. <br />
+ 3. EMS_*_main.m : m file for demo 1. and 2. <br />
+`EMS_RE_plot(PARAM,sol)`      
+</details>
+
 
 
