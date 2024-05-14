@@ -41,7 +41,7 @@ pv_data.Properties.VariableNames{'Ptot (kW)'} = 'PV_kW';
 pv_data = pv_data(:, {'datetime', 'PV_kW'});
 
 %%
-% For loop for all EMS types, all PV size, all battery size, and all TOU types.
+% For loop for all PV size, all battery size, and all TOU types.
 for pv = pv_size_list
     for batt = batt_size_list
         for idx = 1:length(TOU_CHOICE_list)
