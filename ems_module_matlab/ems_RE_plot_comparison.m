@@ -30,7 +30,7 @@ for idx = 1:numel(name_list)
     name = name_list{idx};
     
     % Load solution.
-    sol = load(fullfile('solution', 'EMS5', op, ['THcurrent_', name, '.mat']));
+    sol = load(fullfile('solution', 'RE100_ems', op, ['THcurrent_', name, '.mat']));
     PARAM = sol.PARAM;
     
     % Change unit

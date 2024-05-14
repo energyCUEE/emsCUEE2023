@@ -13,7 +13,7 @@ op = 'pv50kW_batt125kWh';
 name = 'high_load_high_solar_4'; %% some days can be RE 100
 
 % Load solution and parameters.
-sol = load(strcat('solution/EMS5/', op,'/THcurrent','_',name,'.mat'));
+sol = load(strcat('solution/RE100_ems/', op,'/THcurrent','_',name,'.mat'));
 PARAM = sol.PARAM;
 
 % Change unit
