@@ -12,6 +12,7 @@ options = optimoptions('intlinprog','MaxTime',40);
 
 % User-input option specification
 resolution   = 15;                     % Resolution in minutes (int)
+% The batch data in 'batch_dataset_15min' contains 4 cosecutive days for each dataset.
 time_horizon = 4*24*60;                % Optimization horizon in minutes (int)
                                             % Day-ahead (DA)      : Horizon in xx days (resolution 15 mins)
                                             % Intra-day (HA)      : Horizon in xx hours (resolution 5 mins)
