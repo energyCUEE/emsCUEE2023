@@ -17,8 +17,18 @@ time_horizon = 4*24*60;                % Optimization horizon in minutes (int)
                                             % Intra-day (HA)      : Horizon in xx hours (resolution 5 mins)
 
 % Define system size.
-pv_size_list = (50:1:70);
-batt_size_list = round((150:5:400) .* (100/60) / 2);
+% The pv installation capacity varies for 50 - 70 kWp
+min_pv_installation_cap = 50; % unit: kW
+max_pv_installation_cap = 70; % unit: kW
+pv_size_list = (min_pv_installation_cap:1:max_pv_installation_cap); % pv installation capacity
+
+% Note that: the usable capacity of battery is in the range 20% - 80% which is 60%.
+% The total usable capacity varies for 150 - 400 kWh (sum of 2 batteries)
+min_total_usable_battcap = 150; % unit: kWh
+max_total_usable_battcap = 400; % unit: kWh
+usable_cap_percentage = 60; % unit: %
+batt_size_list = round((min_total_usable_battcap:5:max_total_usable_battcap) .* (100/usable_cap_percentage) / 2); % A single battery size
+
 TOU_CHOICE_list = {'smart1', 'THcurrent'};
 
 % read load and pv .csv
