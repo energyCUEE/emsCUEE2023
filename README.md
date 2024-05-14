@@ -16,15 +16,15 @@ minimize Objective function = $J_{\text{cost}} + J_{\text{battery}}$
 
 **Subject to:**
 
-(i) **Power balance constraint**
+(i) Power balance constraint
 
-(ii) **Battery dynamic constraint**
+(ii) Battery dynamic constraint
 
-(iii) **Maximum and minimum charge constraint**
+(iii) Maximum and minimum charge constraint
 
-(iv) **Charging and discharging limitation constraint**
+(iv) Charging and discharging limitation constraint
 
-(v) **Non-simultaneous charge and discharge constraint**
+(v) Non-simultaneous charge and discharge constraint
 
 
 ---
