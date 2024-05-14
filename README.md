@@ -1,6 +1,3 @@
-<details>
-<summary>Overview of this work</summary>
-       
 # Abstract: 
 To enhance campus sustainability, implementing an Energy Management System (EMS) is essential. This study investigates Gewertz Square sandbox within the Department of Electrical Engineering, Chulalongkorn University. The system includes load consumption, solar generation, and a battery. Three EMS aspects are proposed, including economic, operational, and RE 100 EMS, formulated as Mixed-Integer Linear Programming (MILP). These EMS aspects are analyzed for their impact on energy policies of the desired components in the system. The economic EMS has a spe- cific purpose to minimize energy unit, energy cost, or maximize profit depending on users’ selection when total load consumption is considered, which can be treated as uncontrollable load. Meanwhile, the operational EMS considers the controllable load from Air Conditioning systems (ACs) in two rooms treated as controllable load, focusing on ACs activation while minimizing electricity costs and encouraging islanding EMS. The RE 100 EMS aims to achieve self-reliance regardless of electricity expenses. Forecasting models consisting of load and solar forecasting models from NeuralProphet models are used to predict future data, serving as parameters in the actual EMS operation. An example of EMS operation in Economic EMS is simulated. In this work, two time-scale optimizations are formulated, Day-Ahead (DA) EMS: horizon 3 days with 15-minute resolution, and Hour-Ahead (HA) EMS: horizon 1 hour with 5-minute resolution. The HA EMS is designed to account for both errors from the DA EMS and optimal planning over an HA period. Hence, HA EMS utilizes DA solution as a guided planing by aligning HA solutions with DA solutions as the absolute of difference of power relating to the battery. Simulation results illustrate that the decision-making process of the battery varies for each proposed EMS. The study concludes that EMS implementation offers significant advantages over not utilizing one.
 
@@ -27,7 +24,17 @@ minimize Objective function = $J_{\text{cost}} + J_{\text{battery}}$
 (v) Non-simultaneous charge and discharge constraint
 
 
+# Examples of simulation result
+![Forecasted load and solar profile with battery status during November 1st-4th, 2023](result/figures/rolling/20231101_20231104_DA3plot.png)
+
+![State of Charge with charging and discharging power in DA and HA schemes during November 1st-4th, 2023](result/figures/rolling/20231101_20231104_DAHA.png)
+
+![Pnet(t) and expenses of the DA and HA plans during November 1st-4th, 2023](result/figures/rolling/20231101_20231104_Pnet.png)
+
+
 ---
+<details>
+<summary>EMS parameter details</summary>
 
 
 | General parameter  | Unit |
